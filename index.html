@@ -28,14 +28,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://raw.githubusercontent.com/Majin1Vergil/Subscriptions/refs/heads/main/backgrounds/Devil%20May%20Cry%20%5BEnglish%5D.jpg') center/cover no-repeat;
+            background: url('https://raw.githubusercontent.com/Majin1Vergil/Subscriptions/main/backgrounds/Devil%20May%20Cry%20%5BEnglish%5D.jpg') center/cover no-repeat;
             z-index: -1;
             transition: all 0.5s ease;
         }
 
         /* Arabic wallpaper background */
         [lang="ar"] body::before {
-            background: url('https://raw.githubusercontent.com/Majin1Vergil/Subscriptions/refs/heads/main/backgrounds/Devil%20May%20Cry%20%5BArabic%5D.jpg') center/cover no-repeat;
+            background: url('https://raw.githubusercontent.com/Majin1Vergil/Subscriptions/main/backgrounds/Devil%20May%20Cry%20%5BArabic%5D.jpg') center/cover no-repeat;
         }
         
         .container {
@@ -232,7 +232,11 @@
             margin-left: 10px;
         }
         
-        .tier-card:hover {
+        .tier-card.clickable {
+            cursor: pointer;
+        }
+
+        .tier-card:not(.clickable):hover {
             transform: translateX(5px) scale(1.01);
             border-color: #dc2626;
             box-shadow: 
@@ -240,8 +244,7 @@
                 0 0 30px rgba(220, 38, 38, 0.2);
         }
 
-        /* Arabic mode - reverse hover direction */
-        [lang="ar"] .tier-card:hover {
+        [lang="ar"] .tier-card:not(.clickable):hover {
             transform: translateX(-5px) scale(1.01);
         }
         
@@ -648,7 +651,7 @@
                 </div>
             </div>
             
-            <div class="tier-card legendary">
+            <div class="tier-card legendary clickable" onclick="window.open('https://gahweni.com/Dark1Vergil', '_blank')">
                 <div class="tier-header">
                     <div class="character-portrait vergil-portrait"></div>
                     <div class="tier-info">
