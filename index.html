@@ -500,6 +500,45 @@
             }
         }
         
+        .music-shuffle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #dc2626, #b91c1c);
+            border: 2px solid rgba(220, 38, 38, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: white;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(220, 38, 38, 0.4);
+            z-index: 1000;
+        }
+
+        .music-shuffle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(220, 38, 38, 0.6);
+        }
+
+        .music-shuffle:active {
+            transform: scale(0.95) rotate(-15deg);
+        }
+
+        [lang="ar"] .music-shuffle {
+            right: auto;
+            left: 20px;
+        }
+
         /* Custom scrollbar - HIDDEN */
         .tiers-container::-webkit-scrollbar {
             display: none;
@@ -628,7 +667,59 @@
         </div>
     </div>
 
+    <!-- Simple Music Shuffle Button -->
+    <div class="music-shuffle" id="shuffleBtn" title="Play Random Music">
+        🎵
+    </div>
+
+    <audio id="audioPlayer" preload="auto"></audio>
+
     <script>
+        // Simple Music Shuffle Setup
+        const musicFiles = [
+            'https://kappa.vgmsite.com/soundtracks/kingdom-hearts-iii-face-my-fears/awkrgliu/01.%20Face%20My%20Fears%20%28English%20Version%29.mp3'
+        ];
+
+        let currentTrack = 0;
+        const audioPlayer = document.getElementById('audioPlayer');
+        const shuffleBtn = document.getElementById('shuffleBtn');
+
+        // Initialize audio
+        audioPlayer.volume = 0.2; // 20% volume for background music
+
+        function playRandomTrack() {
+            // Pick random track
+            currentTrack = Math.floor(Math.random() * musicFiles.length);
+            
+            // Load and play
+            audioPlayer.src = musicFiles[currentTrack];
+            audioPlayer.play().catch(e => console.log('Audio play prevented:', e));
+            
+            // Visual feedback
+            shuffleBtn.style.background = 'linear-gradient(45deg, #059669, #047857)';
+            shuffleBtn.style.transform = 'scale(1.2) rotate(360deg)';
+            
+            // Reset visual after animation
+            setTimeout(() => {
+                shuffleBtn.style.background = 'linear-gradient(45deg, #dc2626, #b91c1c)';
+                shuffleBtn.style.transform = 'scale(1)';
+            }, 500);
+        }
+
+        // Auto-advance to next random track when current ends
+        audioPlayer.addEventListener('ended', playRandomTrack);
+
+        // Shuffle button click event
+        shuffleBtn.addEventListener('click', playRandomTrack);
+
+        // Auto-start music after first user interaction
+        document.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                playRandomTrack();
+            }
+        }, { once: true });
+
+        // Language switching function
         function switchLanguage(lang) {
             // Update document language
             document.documentElement.lang = lang;
