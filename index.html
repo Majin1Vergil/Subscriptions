@@ -20,7 +20,7 @@
             overflow: hidden;
         }
 
-        /* Dante wallpaper background */
+        /* English wallpaper background */
         body::before {
             content: '';
             position: fixed;
@@ -28,14 +28,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://i.imgur.com/XUBfaRQ.jpeg') center/cover no-repeat;
+            background: url('https://raw.githubusercontent.com/Majin1Vergil/Subscriptions/refs/heads/main/backgrounds/Devil%20May%20Cry%20%5BEnglish%5D.jpg') center/cover no-repeat;
             z-index: -1;
             transition: all 0.5s ease;
         }
 
-        /* Arabic flipped wallpaper */
+        /* Arabic wallpaper background */
         [lang="ar"] body::before {
-            background: url('https://i.imgur.com/cHyCik6.jpeg') center/cover no-repeat;
+            background: url('https://raw.githubusercontent.com/Majin1Vergil/Subscriptions/refs/heads/main/backgrounds/Devil%20May%20Cry%20%5BArabic%5D.jpg') center/cover no-repeat;
         }
         
         .container {
@@ -677,7 +677,9 @@
     <script>
         // Simple Music Shuffle Setup
         const musicFiles = [
-            'https://kappa.vgmsite.com/soundtracks/kingdom-hearts-iii-face-my-fears/awkrgliu/01.%20Face%20My%20Fears%20%28English%20Version%29.mp3'
+            'https://raw.githubusercontent.com/Majin1Vergil/Subscriptions/main/music/Devils Never Cry.mp3',
+            'https://raw.githubusercontent.com/Majin1Vergil/Subscriptions/main/music/Bury the Light.mp3',
+            'https://raw.githubusercontent.com/Majin1Vergil/Subscriptions/main/music/Subhuman.mp3'
         ];
 
         let currentTrack = 0;
@@ -686,6 +688,11 @@
 
         // Initialize audio
         audioPlayer.volume = 0.2; // 20% volume for background music
+
+        // Auto-start music when page loads (after 2 seconds)
+        setTimeout(() => {
+            playRandomTrack();
+        }, 2000);
 
         function playRandomTrack() {
             // Pick random track
