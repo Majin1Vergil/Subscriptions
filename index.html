@@ -9,10 +9,7 @@
         
         body {
             font-family: 'Orbitron', monospace;
-            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background: #000000;
             margin: 0;
             padding: 0;
             min-height: 100vh;
@@ -20,7 +17,7 @@
             overflow: hidden;
         }
 
-        /* English wallpaper background */
+        /* Fallback background pattern */
         body::before {
             content: '';
             position: fixed;
@@ -28,14 +25,21 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://i.imgur.com/AWssgtN.jpeg') center/cover no-repeat;
+            background: linear-gradient(45deg, #0a0a0a 25%, #1a0505 25%, #1a0505 50%, #0a0a0a 50%, #0a0a0a 75%, #1a0505 75%);
+            background-size: 60px 60px;
             z-index: -1;
-            transition: all 0.5s ease;
+            opacity: 0.3;
         }
 
-        /* Arabic wallpaper background */
-        [lang="ar"] body::before {
-            background: url('https://i.imgur.com/cHyCik6.jpeg') center/cover no-repeat;
+        /* Dynamic background loading */
+        .bg-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            transition: opacity 0.5s ease;
         }
         
         .container {
@@ -670,6 +674,9 @@
         </div>
     </div>
 
+    <!-- Background Image Loader -->
+    <div class="bg-loader" id="bgLoader"></div>
+
     <!-- Simple Music Shuffle Button -->
     <div class="music-shuffle" id="shuffleBtn" title="Play Random Music">
         🎵
@@ -678,6 +685,35 @@
     <audio id="audioPlayer" preload="auto"></audio>
 
     <script>
+        // Dynamic Background Loading
+        function loadBackground() {
+            const bgLoader = document.getElementById('bgLoader');
+            const isArabic = document.documentElement.lang === 'ar';
+            
+            const englishBg = 'https://i.imgur.com/AWssgtN.jpeg';
+            const arabicBg = 'https://i.imgur.com/cHyCik6.jpeg';
+            
+            const bgUrl = isArabic ? arabicBg : englishBg;
+            
+            // Create image element to preload
+            const img = new Image();
+            img.onload = function() {
+                bgLoader.style.backgroundImage = `url('${bgUrl}')`;
+                bgLoader.style.backgroundSize = 'cover';
+                bgLoader.style.backgroundPosition = 'center';
+                bgLoader.style.backgroundRepeat = 'no-repeat';
+                bgLoader.style.opacity = '1';
+            };
+            img.onerror = function() {
+                console.log('Background image failed to load, using fallback');
+                // Fallback remains visible
+            };
+            img.src = bgUrl;
+        }
+
+        // Load background on page load
+        loadBackground();
+
         // Simple Music Shuffle Setup
         const musicFiles = [
             './music/DevilsNeverCry.mp3',
@@ -751,6 +787,9 @@
                     element.textContent = element.getAttribute('data-en');
                 }
             });
+            
+            // Reload background for language change
+            loadBackground();
             
             // Fix any remaining display issues
             setTimeout(() => {
