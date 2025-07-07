@@ -20,22 +20,32 @@
             overflow: hidden;
         }
 
-        /* English wallpaper background */
+        /* Remove CSS background and use HTML img instead */
         body::before {
-            content: '';
+            display: none;
+        }
+
+        .background-image {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://i.imgur.com/XUBfaRQ.jpeg') center/cover no-repeat;
+            object-fit: cover;
             z-index: -1;
-            transition: all 0.5s ease;
+            transition: opacity 0.5s ease;
         }
 
-        /* Arabic wallpaper background */
-        [lang="ar"] body::before {
-            background: url('https://i.imgur.com/cHyCik6.jpeg') center/cover no-repeat;
+        .background-image.arabic {
+            opacity: 0;
+        }
+
+        [lang="ar"] .background-image.english {
+            opacity: 0;
+        }
+
+        [lang="ar"] .background-image.arabic {
+            opacity: 1;
         }
         
         .container {
@@ -552,8 +562,12 @@
             scrollbar-width: none;
         }
     </style>
-</head>
+    </head>
 <body>
+    <!-- Background Images as HTML elements -->
+    <img class="background-image english" src="https://i.imgur.com/XUBfaRQ.jpeg" alt="DMC Background">
+    <img class="background-image arabic" src="https://i.imgur.com/cHyCik6.jpeg" alt="DMC Arabic Background">
+
     <div class="container">
         <div class="header">
             <div class="language-switch">
