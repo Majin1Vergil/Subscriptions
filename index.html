@@ -28,14 +28,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('/backgrounds/Devil May Cry [English].jpg') center/cover no-repeat;
+            background-image: url('https://raw.githubusercontent.com/Majin1Vergil/Subscriptions/main/backgrounds/Devil%20May%20Cry%20%5BEnglish%5D.jpg');
             z-index: -1;
             transition: all 0.5s ease;
         }
 
         /* Arabic wallpaper background */
         [lang="ar"] body::before {
-            background: url('./backgrounds/Devil May Cry [Arabic].jpg') center/cover no-repeat;
+            background-image: url('https://raw.githubusercontent.com/Majin1Vergil/Subscriptions/main/backgrounds/Devil%20May%20Cry%20%5BArabic%5D.jpg');
         }
         
         .container {
@@ -651,23 +651,21 @@
                 </div>
             </div>
             
-            <div class="tier-card legendary clickable">
-                <a href="https://gahweni.com/Dark1Vergil" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-                    <div class="tier-header">
-                        <div class="character-portrait vergil-portrait"></div>
-                        <div class="tier-info">
-                            <div class="tier-name" data-en="Vergil" data-ar="فيرجيل">Vergil</div>
-                            <div class="character-name" data-en="The Dark Slayer" data-ar="القاتل المظلم">The Dark Slayer</div>
-                        </div>
-                        <div class="price"><span data-en="300" data-ar="٣٠٠">300</span><span class="currency" data-en=" SAR" data-ar=" ريال"> SAR</span></div>
+            <div class="tier-card legendary clickable" onclick="window.open('https://gahweni.com/Dark1Vergil', '_blank')">
+                <div class="tier-header">
+                    <div class="character-portrait vergil-portrait"></div>
+                    <div class="tier-info">
+                        <div class="tier-name" data-en="Vergil" data-ar="فيرجيل">Vergil</div>
+                        <div class="character-name" data-en="The Dark Slayer" data-ar="القاتل المظلم">The Dark Slayer</div>
                     </div>
-                    <div class="tier-details">
-                        <div class="tier-specs">
-                            <div class="spec-badge" data-en="1 PC" data-ar="جهاز واحد">1 PC</div>
-                            <div class="spec-badge" data-en="12 Months" data-ar="١٢ شهر">12 Months</div>
-                        </div>
+                    <div class="price"><span data-en="300" data-ar="٣٠٠">300</span><span class="currency" data-en=" SAR" data-ar=" ريال"> SAR</span></div>
+                </div>
+                <div class="tier-details">
+                    <div class="tier-specs">
+                        <div class="spec-badge" data-en="1 PC" data-ar="جهاز واحد">1 PC</div>
+                        <div class="spec-badge" data-en="12 Months" data-ar="١٢ شهر">12 Months</div>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
     </div>
@@ -682,9 +680,9 @@
     <script>
         // Simple Music Shuffle Setup
         const musicFiles = [
-            './music/Devils Never Cry.mp3',
-            './music/Bury the Light.mp3',
-            './music/Subhuman.mp3'
+            'https://raw.githubusercontent.com/Majin1Vergil/Subscriptions/main/music/Devils Never Cry.mp3',
+            'https://raw.githubusercontent.com/Majin1Vergil/Subscriptions/main/music/Bury the Light.mp3',
+            'https://raw.githubusercontent.com/Majin1Vergil/Subscriptions/main/music/Subhuman.mp3'
         ];
 
         let currentTrack = 0;
@@ -694,17 +692,10 @@
         // Initialize audio
         audioPlayer.volume = 0.2; // 20% volume for background music
 
-        // Auto-start music when page loads (after user interaction due to browser policies)
-        let musicStarted = false;
-        
-        document.addEventListener('click', () => {
-            if (!musicStarted) {
-                setTimeout(() => {
-                    playRandomTrack();
-                }, 1000);
-                musicStarted = true;
-            }
-        }, { once: true });
+        // Auto-start music when page loads (after 2 seconds)
+        setTimeout(() => {
+            playRandomTrack();
+        }, 2000);
 
         function playRandomTrack() {
             // Pick random track
@@ -712,17 +703,7 @@
             
             // Load and play
             audioPlayer.src = musicFiles[currentTrack];
-            audioPlayer.play()
-                .then(() => {
-                    console.log('Music started successfully');
-                })
-                .catch(e => {
-                    console.log('Audio play prevented by browser policy:', e);
-                    // Fallback: try again on next user interaction
-                    document.addEventListener('click', () => {
-                        audioPlayer.play().catch(err => console.log('Retry failed:', err));
-                    }, { once: true });
-                });
+            audioPlayer.play().catch(e => console.log('Audio play prevented:', e));
             
             // Visual feedback
             shuffleBtn.style.background = 'linear-gradient(45deg, #059669, #047857)';
