@@ -3,259 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devil May Cry Gaming Subscription</title>
+    <title>Devil May Cry - Subscription Tiers</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Orbitron:wght@400;700;900&family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Orbitron:wght@400;700;900&display=swap');
         
-        body {
-            font-family: 'Orbitron', monospace;
-            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a0a0a 30%, #2d1b1b  100%);
             min-height: 100vh;
-            position: relative;
-            overflow: hidden;
+            font-family: 'Orbitron', monospace;
+            color: #e0e0e0;
+            overflow-x: hidden;
         }
-
-        /* Remove CSS background and use HTML img instead */
+        
         body::before {
-            display: none;
-        }
-
-        .background-image {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background: radial-gradient(circle at 50% 50%, rgba(220, 20, 60, 0.1) 0%, transparent 70%);
+            pointer-events: none;
             z-index: -1;
-            transition: opacity 0.5s ease;
-        }
-
-        .background-image.arabic {
-            opacity: 0;
-        }
-
-        [lang="ar"] .background-image.english {
-            opacity: 0;
-        }
-
-        [lang="ar"] .background-image.arabic {
-            opacity: 1;
         }
         
         .container {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 47%;
-            height: 100vh;
-            background: linear-gradient(135deg, 
-                rgba(10, 10, 10, 0.95) 0%, 
-                rgba(25, 5, 5, 0.92) 30%,
-                rgba(40, 10, 10, 0.88) 70%,
-                rgba(15, 5, 5, 0.95) 100%);
-            backdrop-filter: blur(8px);
-            border-right: 3px solid #dc2626;
-            box-shadow: 
-                0 0 50px rgba(220, 38, 38, 0.3),
-                inset 0 0 50px rgba(0, 0, 0, 0.5);
-            overflow-y: auto;
-            padding: 20px 25px 20px 20px;
-            box-sizing: border-box;
-            position: relative;
-            transition: all 0.5s ease;
-        }
-
-        /* Arabic mode - MOVE ENTIRE PANEL TO RIGHT SIDE OF SCREEN */
-        [lang="ar"] .container {
-            left: 53%;  /* Move to right side, leaving 53% for wallpaper */
-            right: auto;
-            border-right: none;
-            border-left: 3px solid #dc2626;
-            padding: 20px 20px 20px 25px;
-        }
-
-        /* Arabic mode - also move language switch to match panel position */
-        [lang="ar"] .language-switch {
-            left: auto;
-            right: 15px;
-        }
-
-        /* Gothic decorative border */
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
-            border: 2px solid rgba(220, 38, 38, 0.3);
-            border-image: linear-gradient(45deg, transparent, #dc2626, transparent, #dc2626) 1;
-            pointer-events: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 3rem;
             position: relative;
-            z-index: 2;
         }
-
-        .language-switch {
+        
+        .header::before {
+            content: '';
             position: absolute;
-            top: 10px;
-            left: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid rgba(220, 38, 38, 0.4);
-            border-radius: 20px;
-            padding: 5px;
-            backdrop-filter: blur(5px);
-            transition: all 0.5s ease;
-        }
-
-        /* Arabic mode - move language switch to right */
-        [lang="ar"] .language-switch {
-            left: auto;
-            right: 15px;
-        }
-
-        .lang-btn {
-            padding: 5px 12px;
-            border: none;
-            border-radius: 15px;
-            background: transparent;
-            color: #94a3b8;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.7em;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .lang-btn.active {
-            background: linear-gradient(45deg, #dc2626, #b91c1c);
-            color: white;
-            box-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
-        }
-
-        .lang-btn:hover:not(.active) {
-            color: #dc2626;
-            background: rgba(220, 38, 38, 0.1);
-        }
-
-        .dmc-logo {
-            width: 50px;
-            height: 50px;
-            background: url('https://i.imgur.com/wrTJbbY.png') center/contain no-repeat;
-            margin: 0 auto 10px;
-            filter: drop-shadow(0 0 15px rgba(220, 38, 38, 0.8));
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(220, 20, 60, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
             animation: pulse 2s ease-in-out infinite alternate;
         }
-
+        
         @keyframes pulse {
-            from { filter: drop-shadow(0 0 15px rgba(220, 38, 38, 0.8)); }
-            to { filter: drop-shadow(0 0 25px rgba(220, 38, 38, 1)); }
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.1; }
         }
         
-        h1 {
+        .main-title {
             font-family: 'Cinzel', serif;
-            color: #ffffff;
-            margin: 5px 0;
-            font-size: 1.8em;
+            font-size: 3rem;
             font-weight: 700;
-            text-align: center;
-            text-shadow: 
-                0 0 10px rgba(220, 38, 38, 0.8),
-                0 0 20px rgba(220, 38, 38, 0.5),
-                0 2px 4px rgba(0, 0, 0, 0.8);
-            background: linear-gradient(45deg, #ff6b6b, #dc2626, #b91c1c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #dc143c;
+            text-shadow: 0 0 20px rgba(220, 20, 60, 0.5);
+            margin-bottom: 0.5rem;
             letter-spacing: 2px;
         }
-
-        [lang="ar"] h1 {
-            font-family: 'Cairo', 'Amiri', serif;
-            direction: rtl;
-            letter-spacing: 1px;
-        }
-
+        
         .subtitle {
-            font-family: 'Orbitron', monospace;
-            color: #cbd5e1;
-            font-size: 0.8em;
-            text-transform: uppercase;
+            font-size: 1.2rem;
+            color: #b8860b;
+            font-weight: 400;
             letter-spacing: 1px;
-            text-shadow: 0 0 5px rgba(220, 38, 38, 0.3);
-            margin-bottom: 3px;
-        }
-
-        [lang="ar"] .subtitle {
-            font-family: 'Cairo', 'Amiri', monospace;
-            direction: rtl;
-            text-transform: none;
-            letter-spacing: 0.5px;
         }
         
-        .tiers-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-height: calc(100vh - 150px);
-            overflow-y: auto;
-            padding-right: 5px;
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
         
         .tier-card {
-            background: linear-gradient(135deg, 
-                rgba(20, 20, 20, 0.9) 0%, 
-                rgba(40, 10, 10, 0.85) 50%,
-                rgba(25, 25, 25, 0.9) 100%);
-            border: 1px solid rgba(220, 38, 38, 0.4);
-            border-radius: 8px;
-            padding: 20px 15px 15px 15px;
-            margin-right: 10px;
-            margin-top: 15px;
-            transition: all 0.4s ease;
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(45, 45, 45, 0.9));
+            border: 2px solid rgba(220, 20, 60, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
             position: relative;
-            overflow: visible;
-            backdrop-filter: blur(3px);
-            box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        /* Arabic mode - adjust margins */
-        [lang="ar"] .tier-card {
-            margin-right: 0;
-            margin-left: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
         
-        .tier-card.clickable {
-            cursor: pointer;
-        }
-
-        .tier-card:not(.clickable):hover {
-            transform: translateX(5px) scale(1.01);
-            border-color: #dc2626;
-            box-shadow: 
-                0 8px 25px rgba(220, 38, 38, 0.3),
-                0 0 30px rgba(220, 38, 38, 0.2);
-        }
-
-        [lang="ar"] .tier-card:not(.clickable):hover {
-            transform: translateX(-5px) scale(1.01);
+        .tier-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(220, 20, 60, 0.6);
+            box-shadow: 0 10px 30px rgba(220, 20, 60, 0.2);
         }
         
         .tier-card::before {
@@ -264,535 +111,185 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #dc2626, #ff6b6b, #dc2626, transparent);
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #dc143c, transparent);
+            animation: sweep 3s ease-in-out infinite;
         }
         
-        .tier-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            gap: 12px;
-        }
-
-        /* Arabic mode - completely reverse the header order */
-        [lang="ar"] .tier-header {
-            flex-direction: row-reverse;
-        }
-
-        [lang="ar"] .tier-info {
-            text-align: right;
-        }
-        
-        .character-portrait {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid rgba(220, 38, 38, 0.6);
-            background-size: cover;
-            background-position: center;
-            filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.4));
-            transition: all 0.3s ease;
-        }
-
-        .tier-card:hover .character-portrait {
-            border-color: #dc2626;
-            filter: drop-shadow(0 0 15px rgba(220, 38, 38, 0.8));
-            transform: scale(1.1);
-        }
-
-        /* Character-specific portrait backgrounds */
-        .nico-portrait { background-image: url('https://i.imgur.com/nbQW8dJ.jpeg'); }
-        .lady-portrait { background-image: url('https://i.imgur.com/13T79Cn.jpeg'); }
-        .trish-portrait { background-image: url('https://i.imgur.com/5AtZNQD.jpeg'); }
-        .nero-portrait { background-image: url('https://i.imgur.com/eZBjuOu.jpeg'); }
-        .dante-portrait { background-image: url('https://i.imgur.com/nE4BgS8.jpeg'); }
-        .vergil-portrait { background-image: url('https://i.imgur.com/nLY3ESe.jpeg'); }
-        
-        .tier-info {
-            flex: 1;
+        @keyframes sweep {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
         
         .tier-name {
             font-family: 'Cinzel', serif;
-            font-size: 1.1em;
+            font-size: 1.4rem;
             font-weight: 600;
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(220, 38, 38, 0.5);
-            letter-spacing: 1px;
-            margin-bottom: 2px;
-        }
-
-        [lang="ar"] .tier-name {
-            font-family: 'Cairo', 'Amiri', serif;
-            direction: rtl;
-            text-align: right;
-        }
-
-        .character-name {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.7em;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        [lang="ar"] .character-name {
-            font-family: 'Cairo', 'Amiri', monospace;
-            text-transform: none;
-            direction: rtl;
-            letter-spacing: 0.5px;
+            color: #dc143c;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(220, 20, 60, 0.3);
         }
         
         .tier-details {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
+            gap: 1rem;
         }
-
-        /* Arabic mode - reverse specs to left side */
-        [lang="ar"] .tier-details {
-            justify-content: flex-end;
-        }
-
-        [lang="ar"] .tier-specs {
-            order: 2;
-        }
-
+        
         .price {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.4em;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #b8860b;
+            text-shadow: 0 0 10px rgba(184, 134, 11, 0.3);
+        }
+        
+        .specs {
+            text-align: right;
+            line-height: 1.4;
+        }
+        
+        .pc-count {
+            font-size: 1.1rem;
+            color: #e0e0e0;
             font-weight: 700;
-            color: #dc2626;
-            text-shadow: 
-                0 0 10px rgba(220, 38, 38, 0.8),
-                0 0 20px rgba(220, 38, 38, 0.4);
-        }
-
-        [lang="ar"] .price {
-            font-family: 'Cairo', 'Amiri', monospace;
-            direction: rtl;
         }
         
-        .currency {
-            font-size: 0.6em;
-            color: #94a3b8;
-            margin-left: 3px;
-            text-shadow: none;
+        .duration {
+            font-size: 0.9rem;
+            color: #888;
+            font-weight: 400;
         }
         
-        .tier-specs {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
+        .featured {
+            border-color: #b8860b;
+            background: linear-gradient(145deg, rgba(184, 134, 11, 0.1), rgba(45, 45, 45, 0.9));
         }
         
-        .spec-badge {
-            background: rgba(220, 38, 38, 0.15);
-            color: #f1f5f9;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 0.7em;
-            border: 1px solid rgba(220, 38, 38, 0.3);
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        [lang="ar"] .spec-badge {
-            font-family: 'Cairo', 'Amiri', monospace;
-            text-transform: none;
-            direction: rtl;
-            letter-spacing: 0px;
-        }
-        
-        .legendary {
-            position: relative;
-            animation: vergilGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes vergilGlow {
-            from { 
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(59, 130, 246, 0.3);
-                border-color: rgba(59, 130, 246, 0.4);
-            }
-            to { 
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 30px rgba(59, 130, 246, 0.5);
-                border-color: rgba(59, 130, 246, 0.6);
-            }
-        }
-
-        .legendary::before {
-            background: linear-gradient(90deg, transparent, #3b82f6, #60a5fa, #3b82f6, transparent);
-        }
-        
-        .legendary::after {
-            content: '👑 SON OF SPARDA';
+        .featured::after {
+            content: 'BEST VALUE';
             position: absolute;
             top: -8px;
-            right: 10px;
-            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
-            color: #ffffff;
-            padding: 3px 10px;
-            border-radius: 10px;
-            font-size: 0.65em;
+            right: 15px;
+            background: linear-gradient(45deg, #b8860b, #ffd700);
+            color: #000;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.7rem;
             font-weight: 700;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
+            border-radius: 15px;
             letter-spacing: 1px;
-            box-shadow: 
-                0 2px 10px rgba(59, 130, 246, 0.4),
-                0 0 15px rgba(59, 130, 246, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .popular {
-            position: relative;
-        }
-
-        .popular::after {
-            content: '🔥 POPULAR';
-            position: absolute;
-            top: -8px;
-            right: 10px;
-            background: linear-gradient(45deg, #dc2626, #b91c1c);
-            color: #ffffff;
-            padding: 3px 10px;
-            border-radius: 10px;
-            font-size: 0.65em;
-            font-weight: 700;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 
-                0 2px 10px rgba(220, 38, 38, 0.4),
-                0 0 15px rgba(220, 38, 38, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
-        /* Responsive design */
-        @media (max-width: 1024px) {
-            .container {
-                width: 57%;
-            }
-            
-            /* Arabic mode - move to right side on tablets too */
-            [lang="ar"] .container {
-                left: 43%;  /* 100% - 57% = 43% */
-                right: auto;
-            }
+        .premium {
+            border-color: #8b0000;
+            background: linear-gradient(145deg, rgba(139, 0, 0, 0.1), rgba(45, 45, 45, 0.9));
+        }
+        
+        .premium::after {
+            content: 'PREMIUM';
+            position: absolute;
+            top: -8px;
+            right: 15px;
+            background: linear-gradient(45deg, #8b0000, #dc143c);
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            border-radius: 15px;
+            letter-spacing: 1px;
         }
         
         @media (max-width: 768px) {
-            .container {
-                width: 100%;
-                height: auto;
-                position: static;
-                background: rgba(10, 10, 10, 0.97);
+            .main-title {
+                font-size: 2.2rem;
             }
             
-            h1 {
-                font-size: 1.5em;
+            .tiers-grid {
+                grid-template-columns: 1fr;
             }
             
             .tier-card {
-                padding: 12px;
+                padding: 1.2rem;
             }
-
-            .tier-card:hover {
-                transform: translateY(-3px) scale(1.01);
-            }
-
-            .character-portrait {
-                width: 35px;
-                height: 35px;
-            }
-        }
-        
-        .music-shuffle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, #dc2626, #b91c1c);
-            border: 2px solid rgba(220, 38, 38, 0.6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.2em;
-            color: white;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.3),
-                0 0 20px rgba(220, 38, 38, 0.4);
-            z-index: 1000;
-        }
-
-        .music-shuffle:hover {
-            transform: scale(1.1) rotate(15deg);
-            box-shadow: 
-                0 6px 20px rgba(0, 0, 0, 0.4),
-                0 0 30px rgba(220, 38, 38, 0.6);
-        }
-
-        .music-shuffle:active {
-            transform: scale(0.95) rotate(-15deg);
-        }
-
-        [lang="ar"] .music-shuffle {
-            right: auto;
-            left: 20px;
-        }
-
-        /* Custom scrollbar - HIDDEN */
-        .tiers-container::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .tiers-container {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
         }
     </style>
-    </head>
+</head>
 <body>
-    <!-- Background Images as HTML elements -->
-    <img class="background-image english" src="https://i.imgur.com/XUBfaRQ.jpeg" alt="DMC Background">
-    <img class="background-image arabic" src="https://i.imgur.com/cHyCik6.jpeg" alt="DMC Arabic Background">
-
     <div class="container">
         <div class="header">
-            <div class="language-switch">
-                <button class="lang-btn active" onclick="switchLanguage('en')">EN</button>
-                <button class="lang-btn" onclick="switchLanguage('ar')">AR</button>
-            </div>
-            <div class="dmc-logo"></div>
-            <div class="subtitle" data-en="Devil May Cry" data-ar="ديفل ماي كراي">Devil May Cry</div>
-            <h1 data-en="Gaming Subscription" data-ar="اشتراك الألعاب">Gaming Subscription</h1>
+            <h1 class="main-title">DEVIL MAY CRY</h1>
+            <p class="subtitle">Subscription Tiers</p>
         </div>
         
-        <div class="tiers-container">
+        <div class="tiers-grid">
             <div class="tier-card">
-                <div class="tier-header">
-                    <div class="character-portrait nico-portrait"></div>
-                    <div class="tier-info">
-                        <div class="tier-name" data-en="Nico" data-ar="نيكو">Nico</div>
-                        <div class="character-name" data-en="The Mechanic" data-ar="الميكانيكي">The Mechanic</div>
-                    </div>
-                    <div class="price"><span data-en="45" data-ar="٤٥">45</span><span class="currency" data-en=" SAR" data-ar=" ريال"> SAR</span></div>
-                </div>
+                <h3 class="tier-name">Single PC</h3>
                 <div class="tier-details">
-                    <div class="tier-specs">
-                        <div class="spec-badge" data-en="1 PC" data-ar="جهاز واحد">1 PC</div>
-                        <div class="spec-badge" data-en="1 Month" data-ar="شهر واحد">1 Month</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="tier-card popular">
-                <div class="tier-header">
-                    <div class="character-portrait lady-portrait"></div>
-                    <div class="tier-info">
-                        <div class="tier-name" data-en="Lady" data-ar="ليدي">Lady</div>
-                        <div class="character-name" data-en="Devil Hunter" data-ar="صائده الشياطين">Devil Hunter</div>
-                    </div>
-                    <div class="price"><span data-en="65" data-ar="٦٥">65</span><span class="currency" data-en=" SAR" data-ar=" ريال"> SAR</span></div>
-                </div>
-                <div class="tier-details">
-                    <div class="tier-specs">
-                        <div class="spec-badge" data-en="2 PCs" data-ar="جهازين">2 PCs</div>
-                        <div class="spec-badge" data-en="1 Month" data-ar="شهر واحد">1 Month</div>
+                    <div class="price">45 SAR</div>
+                    <div class="specs">
+                        <div class="pc-count">1 PC</div>
+                        <div class="duration">1 Month</div>
                     </div>
                 </div>
             </div>
             
             <div class="tier-card">
-                <div class="tier-header">
-                    <div class="character-portrait trish-portrait"></div>
-                    <div class="tier-info">
-                        <div class="tier-name" data-en="Trish" data-ar="تريش">Trish</div>
-                        <div class="character-name" data-en="Lightning Witch" data-ar="ساحرة البرق">Lightning Witch</div>
-                    </div>
-                    <div class="price"><span data-en="85" data-ar="٨٥">85</span><span class="currency" data-en=" SAR" data-ar=" ريال"> SAR</span></div>
-                </div>
+                <h3 class="tier-name">Dual PC</h3>
                 <div class="tier-details">
-                    <div class="tier-specs">
-                        <div class="spec-badge" data-en="3 PCs" data-ar="٣ أجهزة">3 PCs</div>
-                        <div class="spec-badge" data-en="1 Month" data-ar="شهر واحد">1 Month</div>
+                    <div class="price">65 SAR</div>
+                    <div class="specs">
+                        <div class="pc-count">2 PCs</div>
+                        <div class="duration">1 Month</div>
                     </div>
                 </div>
             </div>
             
             <div class="tier-card">
-                <div class="tier-header">
-                    <div class="character-portrait nero-portrait"></div>
-                    <div class="tier-info">
-                        <div class="tier-name" data-en="Nero" data-ar="نيرو">Nero</div>
-                        <div class="character-name" data-en="Dead Weight" data-ar="عبء ميت">Dead Weight</div>
-                    </div>
-                    <div class="price"><span data-en="100" data-ar="١٠٠">100</span><span class="currency" data-en=" SAR" data-ar=" ريال"> SAR</span></div>
-                </div>
+                <h3 class="tier-name">Triple PC</h3>
                 <div class="tier-details">
-                    <div class="tier-specs">
-                        <div class="spec-badge" data-en="1 PC" data-ar="جهاز واحد">1 PC</div>
-                        <div class="spec-badge" data-en="3 Months" data-ar="٣ أشهر">3 Months</div>
+                    <div class="price">85 SAR</div>
+                    <div class="specs">
+                        <div class="pc-count">3 PCs</div>
+                        <div class="duration">1 Month</div>
                     </div>
                 </div>
             </div>
             
             <div class="tier-card">
-                <div class="tier-header">
-                    <div class="character-portrait dante-portrait"></div>
-                    <div class="tier-info">
-                        <div class="tier-name" data-en="Dante" data-ar="دانتي">Dante</div>
-                        <div class="character-name" data-en="Legendary Devil Hunter" data-ar="صائد الشياطين الأسطوري">Legendary Devil Hunter</div>
-                    </div>
-                    <div class="price"><span data-en="200" data-ar="٢٠٠">200</span><span class="currency" data-en=" SAR" data-ar=" ريال"> SAR</span></div>
-                </div>
+                <h3 class="tier-name">Three Months</h3>
                 <div class="tier-details">
-                    <div class="tier-specs">
-                        <div class="spec-badge" data-en="1 PC" data-ar="جهاز واحد">1 PC</div>
-                        <div class="spec-badge" data-en="6 Months" data-ar="٦ أشهر">6 Months</div>
+                    <div class="price">100 SAR</div>
+                    <div class="specs">
+                        <div class="pc-count">1 PC</div>
+                        <div class="duration">3 Months</div>
                     </div>
                 </div>
             </div>
             
-            <div class="tier-card legendary clickable">
-                <a href="https://gahweni.com/Dark1Vergil" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-                    <div class="tier-header">
-                        <div class="character-portrait vergil-portrait"></div>
-                        <div class="tier-info">
-                            <div class="tier-name" data-en="Vergil" data-ar="فيرجيل">Vergil</div>
-                            <div class="character-name" data-en="The Dark Slayer" data-ar="القاتل المظلم">The Dark Slayer</div>
-                        </div>
-                        <div class="price"><span data-en="300" data-ar="٣٠٠">300</span><span class="currency" data-en=" SAR" data-ar=" ريال"> SAR</span></div>
+            <div class="tier-card featured">
+                <h3 class="tier-name">Six Months</h3>
+                <div class="tier-details">
+                    <div class="price">200 SAR</div>
+                    <div class="specs">
+                        <div class="pc-count">1 PC</div>
+                        <div class="duration">6 Months</div>
                     </div>
-                    <div class="tier-details">
-                        <div class="tier-specs">
-                            <div class="spec-badge" data-en="1 PC" data-ar="جهاز واحد">1 PC</div>
-                            <div class="spec-badge" data-en="12 Months" data-ar="١٢ شهر">12 Months</div>
-                        </div>
+                </div>
+            </div>
+            
+            <div class="tier-card premium">
+                <h3 class="tier-name">Yearly Tier</h3>
+                <div class="tier-details">
+                    <div class="price">300 SAR</div>
+                    <div class="specs">
+                        <div class="pc-count">1 PC</div>
+                        <div class="duration">12 Months</div>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- Simple Music Shuffle Button -->
-    <div class="music-shuffle" id="shuffleBtn" title="Play Random Music">
-        🎵
-    </div>
-
-    <audio id="audioPlayer" preload="auto"></audio>
-
-    <script>
-        // Simple Music Shuffle Setup
-        const musicFiles = [
-            './music/Devils Never Cry.mp3',
-            './music/Bury the Light.mp3',
-            './music/Subhuman.mp3'
-        ];
-
-        let currentTrack = 0;
-        const audioPlayer = document.getElementById('audioPlayer');
-        const shuffleBtn = document.getElementById('shuffleBtn');
-
-        // Initialize audio
-        audioPlayer.volume = 0.2; // 20% volume for background music
-
-        // Auto-start music when page loads (after user interaction due to browser policies)
-        let musicStarted = false;
-        
-        document.addEventListener('click', () => {
-            if (!musicStarted) {
-                setTimeout(() => {
-                    playRandomTrack();
-                }, 1000);
-                musicStarted = true;
-            }
-        }, { once: true });
-
-        function playRandomTrack() {
-            // Pick random track
-            currentTrack = Math.floor(Math.random() * musicFiles.length);
-            
-            // Load and play
-            audioPlayer.src = musicFiles[currentTrack];
-            audioPlayer.play()
-                .then(() => {
-                    console.log('Music started successfully');
-                })
-                .catch(e => {
-                    console.log('Audio play prevented by browser policy:', e);
-                    // Fallback: try again on next user interaction
-                    document.addEventListener('click', () => {
-                        audioPlayer.play().catch(err => console.log('Retry failed:', err));
-                    }, { once: true });
-                });
-            
-            // Visual feedback
-            shuffleBtn.style.background = 'linear-gradient(45deg, #059669, #047857)';
-            shuffleBtn.style.transform = 'scale(1.2) rotate(360deg)';
-            
-            // Reset visual after animation
-            setTimeout(() => {
-                shuffleBtn.style.background = 'linear-gradient(45deg, #dc2626, #b91c1c)';
-                shuffleBtn.style.transform = 'scale(1)';
-            }, 500);
-        }
-
-        // Auto-advance to next random track when current ends
-        audioPlayer.addEventListener('ended', playRandomTrack);
-
-        // Shuffle button click event
-        shuffleBtn.addEventListener('click', playRandomTrack);
-
-        // Auto-start music after first user interaction
-        document.addEventListener('click', () => {
-            if (audioPlayer.paused) {
-                playRandomTrack();
-            }
-        }, { once: true });
-
-        // Language switching function
-        function switchLanguage(lang) {
-            // Update document language
-            document.documentElement.lang = lang;
-            
-            // Update button states
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if ((lang === 'en' && btn.textContent === 'EN') || 
-                    (lang === 'ar' && btn.textContent === 'AR')) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            // Update all translatable elements
-            document.querySelectorAll('[data-en]').forEach(element => {
-                if (lang === 'ar') {
-                    element.textContent = element.getAttribute('data-ar');
-                } else {
-                    element.textContent = element.getAttribute('data-en');
-                }
-            });
-            
-            // Fix any remaining display issues
-            setTimeout(() => {
-                document.querySelectorAll('.price').forEach(priceEl => {
-                    priceEl.style.display = 'flex';
-                    priceEl.style.alignItems = 'baseline';
-                });
-            }, 100);
-        }
-    </script>
 </body>
 </html>
